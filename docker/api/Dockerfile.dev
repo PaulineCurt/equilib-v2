@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copier le package.json et package-lock.json (si présent)
+COPY package.json package-lock.json* ./
+
+# Installer les dépendances avec npm
+RUN npm install
+
+# Copier le reste des fichiers (node_modules est exclu via .dockerignore)
+COPY . .
+
+EXPOSE 3333
+
+CMD ["npm", "run", "dev"]
